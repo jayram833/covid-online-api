@@ -1,33 +1,33 @@
-'use strict';
+import 'regenerator-runtime/runtime';
 
-const countryData = document.querySelector('.country-data');
-const country = document.querySelector('.country');
-const state = document.querySelector('.state');
-const btn = document.querySelector('.submit');
+const btn = document.querySelector('.btn');
 
-const renderData = function (data) {
-  // btn.addEventListener('click', function () {
-  // });
+btn.addEventListener('click', function () {
+  const inpText = document.querySelector('.inp').value;
 
-  const html = `
-    <div class="render-data">
-    <h2 class="text-row">Confirmed 💯 : <span class="dt1">${data.India.Maharashtra.confirmed}</span></h2>
-    <h2 class="text-row">Deaths ☠ : <span class="dt2">${data.India.Maharashtra.deaths}</span></h2>
-    <h2 class="text-row">Recovered 👍 : <span class="dt3">${data.India.Maharashtra.recovered}</span></h2>
-    <h2 class="text-row">Updated on 🔄 : <span class="dt4">${data.India.Maharashtra.updated}</span></h2>
-  </div>`;
-  countryData.insertAdjacentHTML('beforeend', html);
-  countryData.style.opacity = 1;
+  const arr = [];
+  arr.push(
+    ...inpText[0].toUpperCase(),
+    ...inpText.slice(1, inpText.length).toLowerCase()
+  );
+  const cName = arr.join('');
+
+  getData(cName);
+});
+
+const getData = async function (name) {
+  try {
+    const response = await fetch(
+      `https://covid-api.mmediagroup.fr/v1/cases?country=${name}`
+    );
+    const data = await response.json();
+    console.log(data.All);
+    document.querySelector('.name').textContent = data.All.country;
+    document.querySelector('.cases').textContent = data.All.confirmed;
+    document.querySelector('.deaths').textContent = data.All.deaths;
+    document.querySelector('.recovered').textContent = data.All.recovered;
+  } catch (err) {
+    alert('Please enter valid country name');
+    console.error(err.message);
+  }
 };
-const getData = function () {
-  fetch(`https://covid-api.mmediagroup.fr/v1/cases/`)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      console.log(data.India.Maharashtra);
-      renderData(data);
-    })
-    .catch(err => alert(`Something went wrong ${err}`));
-};
-getData();

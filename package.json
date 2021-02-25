@@ -1,0 +1,29 @@
+{
+  "name": "covid",
+  "version": "1.0.0",
+  "description": "",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "compile:sass": "node-sass sass/main.scss css/style.css -w",
+    "build": "parcel build index.html --out-dir ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayram833/covid-online-api.git"
+  },
+  "author": "jay pansare",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayram833/covid-online-api/issues"
+  },
+  "homepage": "https://github.com/jayram833/covid-online-api#readme",
+  "devDependencies": {
+    "node-sass": "^5.0.0",
+    "parcel": "^1.12.4"
+  },
+  "dependencies": {
+    "core-js": "^3.9.0",
+    "regenerator-runtime": "^0.13.7"
+  }
+}
