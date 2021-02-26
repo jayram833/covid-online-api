@@ -877,65 +877,52 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 var btn = document.querySelector('.btn');
 btn.addEventListener('click', function () {
-  var inpText = document.querySelector('.inp').value;
-  var arr = [];
-  arr.push.apply(arr, _toConsumableArray(inpText[0].toUpperCase()).concat(_toConsumableArray(inpText.slice(1, inpText.length).toLowerCase())));
-  var cName = arr.join('');
-  getData(cName);
+  return getData(document.querySelector('.inp').value);
 });
 
 var getData = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(name) {
-    var response, data;
+    var cName, response, data;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            _context.next = 3;
-            return fetch("https://covid-api.mmediagroup.fr/v1/cases?country=".concat(name));
+            cName = name.replace(/\b\w/g, function (l) {
+              return l.toUpperCase();
+            });
+            _context.next = 4;
+            return fetch("https://covid-api.mmediagroup.fr/v1/cases?country=".concat(cName));
 
-          case 3:
+          case 4:
             response = _context.sent;
-            _context.next = 6;
+            _context.next = 7;
             return response.json();
 
-          case 6:
+          case 7:
             data = _context.sent;
             console.log(data.All);
             document.querySelector('.name').textContent = data.All.country;
             document.querySelector('.cases').textContent = data.All.confirmed;
             document.querySelector('.deaths').textContent = data.All.deaths;
             document.querySelector('.recovered').textContent = data.All.recovered;
-            _context.next = 18;
+            _context.next = 19;
             break;
 
-          case 14:
-            _context.prev = 14;
+          case 15:
+            _context.prev = 15;
             _context.t0 = _context["catch"](0);
             alert('Please enter valid country name');
             console.error(_context.t0.message);
 
-          case 18:
+          case 19:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 14]]);
+    }, _callee, null, [[0, 15]]);
   }));
 
   return function getData(_x) {
@@ -970,7 +957,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56594" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58368" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
